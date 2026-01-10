@@ -145,9 +145,7 @@ model3_map = {char: i for i, char in enumerate(MsgModel3)}
 marker_to_m2 = format(model1_map['#'], f'0{BIT_LENGTH}b')
 marker_to_m3 = format(model1_map['*'], f'0{BIT_LENGTH}b')
 
-inputMessage = """
-hi, A1 ok
-how are you""".strip()
+inputMessage = """abcdefghijabcdefghij""".strip()
 
 
 
@@ -234,4 +232,3 @@ else:
 
 
 
-    

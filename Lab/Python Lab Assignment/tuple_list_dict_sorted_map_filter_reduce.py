@@ -17,22 +17,22 @@ print("index of 3:", t.index(3))  # 2
 ########## List ###############
 ###############################
 
-lst = [3, 1, 4, 1, 5]
+lst = [3, 19, 4, 1, 5]
 
 # append(x) → শেষ এ যোগ
 lst.append(9)
-print("append:", lst)  # [3, 1, 4, 1, 5, 9]
+print("append:", lst)  # [3, 19, 4, 1, 5, 9]
 
 # extend(iterable) → একাধিক যোগ
 lst.extend([6, 7])
-print("extend:", lst)  # [3, 1, 4, 1, 5, 9, 6, 7]
+print("extend:", lst)  # [3, 19, 4, 1, 5, 9, 6, 7]
 
 # insert(i, x) → index i তে x যোগ
 lst.insert(2, 10)
-print("insert at 2:", lst)  # [3, 1, 10, 4, 1, 5, 9, 6, 7]
+print("insert at 2:", lst)  # [3, 19, 10, 4, 1, 5, 9, 6, 7]
 
 # remove(x) → প্রথম occurrence মুছে দেয়
-lst.remove(1)
+lst.remove(19)
 print("remove 1:", lst)  # [3, 10, 4, 1, 5, 9, 6, 7]
 
 # pop([i]) → index i থেকে remove & return
@@ -165,3 +165,140 @@ print("issuperset:", s.issuperset({5,6}))  # True
 
 # isdisjoint(other_set) → কোন common element নেই?
 print("isdisjoint:", s.isdisjoint({8,9}))  # True
+
+
+
+
+
+
+
+
+
+"""
+PYTHON LAMBDA + sorted, map, filter, reduce (Copy Notes)
+
+মনে রাখার শর্ট ফর্ম:
+sorted → সাজায়
+map    → বদলায়
+filter → বাদ দেয় / বাছাই করে
+reduce → অনেক থেকে এক বানায়
+lambda → rule লেখার শর্টকাট ফাংশন
+"""
+
+# ---------------------------
+# 1. sorted() + lambda
+# ---------------------------
+
+# Example 1: Absolute value দিয়ে sort
+nums = [-10, 5, -3, 2, -8]
+result = sorted(nums, key=lambda x: abs(x))
+print(result)
+# Output: [2, -3, 5, -8, -10]
+
+
+# Example 2: Tuple list sort
+students = [
+    ("Antor", 22),
+    ("Rahim", 18),
+    ("Karim", 25),
+]
+
+# Age দিয়ে sort
+result = sorted(students, key=lambda x: x[1])
+print(result)
+# [('Rahim', 18), ('Antor', 22), ('Karim', 25)]
+
+
+# ---------------------------
+# 2. map() + lambda
+# ---------------------------
+
+# সব element কে square করা
+nums = [1, 2, 3, 4]
+result = list(map(lambda x: x * x, nums))
+print(result)
+# [1, 4, 9, 16]
+
+
+# সব element কে 10 দিয়ে গুণ
+nums = [1, 2, 3, 4]
+result = list(map(lambda x: x * 10, nums))
+print(result)
+# [10, 20, 30, 40]
+
+
+# ---------------------------
+# 3. filter() + lambda
+# ---------------------------
+
+# শুধু জোড় সংখ্যা রাখা
+nums = [1, 2, 3, 4, 5, 6]
+result = list(filter(lambda x: x % 2 == 0, nums))
+print(result)
+# [2, 4, 6]
+
+
+# শুধু 5 এর বড় সংখ্যা রাখা
+nums = [2, 4, 6, 8, 10]
+result = list(filter(lambda x: x > 5, nums))
+print(result)
+# [6, 8, 10]
+
+
+# ---------------------------
+# 4. reduce() + lambda
+# ---------------------------
+
+from functools import reduce
+
+# সব সংখ্যার যোগফল
+nums = [1, 2, 3, 4, 5]
+result = reduce(lambda a, b: a + b, nums)
+print(result)
+# 15
+
+
+# সব সংখ্যার গুণফল
+nums = [1, 2, 3, 4]
+result = reduce(lambda a, b: a * b, nums)
+print(result)
+# 24
+
+
+# ---------------------------
+# 5. Full Combo Example
+# ---------------------------
+"""
+Problem:
+1. শুধু জোড় সংখ্যা নিবো
+2. তাদের 10 দিয়ে গুণ করবো
+3. সবগুলা যোগ করবো
+"""
+
+nums = [1, 2, 3, 4, 5, 6]
+
+result = reduce(
+    lambda a, b: a + b,
+    map(lambda x: x * 10,
+        filter(lambda x: x % 2 == 0, nums))
+)
+
+print(result)
+# Steps:
+# nums     → [1, 2, 3, 4, 5, 6]
+# filter   → [2, 4, 6]
+# map      → [20, 40, 60]
+# reduce   → 20 + 40 + 60 = 120
+# Output: 120
+
+
+"""
+এক লাইনে মনে রাখার কৌশল:
+
+sorted(data, key=lambda x: rule)  → কী দিয়ে সাজাবো
+map(lambda x: rule, data)         → প্রতিটাকে বদলাবো
+filter(lambda x: condition, data) → যেগুলা চাই সেগুলা রাখবো
+reduce(lambda a,b: rule, data)    → অনেক থেকে এক বানাবো
+
+lambda = ছোট ফাংশন, শুধু rule লেখার জন্য
+"""

@@ -6,9 +6,29 @@
 # This class must demonstrate constructor usage, encapsulation,
 # string formatting, and conditional statements.
 
+# Create a class Customer that inherits from User and contains _balance (float) and cart (list).
+# Implement methods add_to_cart(*product_ids), checkout(discount=0), and a @property for balance.
+# This class must demonstrate inheritance, property decorator, args usage,
+# default arguments, loops, and exception handling.
+
+# Create a class Admin that inherits from User and contains attribute role (str).
+# Implement methods add_product(name, price, stock) and update_stock(product_id, quantity).
+# Use a static method validate_price(price) and a class method create_admin(data).
+# This class must demonstrate static method, class method, inheritance,
+# validation, and dictionary operations.
+
+# Create classes Product and Order where Product contains product_id, name, price, and stock,
+# and Order contains order_id, items, total_price, and status.
+# Implement methods calculate_total(*prices, tax=0.1) and __str__().
+# The system controller class ShopSystem must manage collections and implement
+# order_generator(), sort_orders(key_name), and revenue calculation using
+# map, filter, reduce, generators, sorting with custom key, and exception handling.
+
+
+
 
 class User:
-    def __init__(self, user_id, username, password):
+    def __init__(self, user_id: int, username: str, password: str):
         self._user_id = user_id
         self._username = username
         self._password = password
@@ -25,14 +45,14 @@ class User:
 # Create a class Customer that inherits from User and contains _balance (float) and cart (list).
 # Implement methods add_to_cart(*product_ids), checkout(discount=0), and a @property for balance.
 # This class must demonstrate inheritance, property decorator, args usage,
-# default arguments, loops, and exception handling.
+# default arguments, loops, and exception handling. #
 
 
 class Customer(User):
-    def __init__(self, user_id, username, password, balance):
+    def __init__(self, user_id, username, password, balance: float):
         super().__init__(user_id, username, password)
         self._balance = balance
-        self.cart = []
+        self.cart = list()
 
     @property
     def balance(self):
@@ -68,7 +88,7 @@ class Customer(User):
 # Implement methods add_product(name, price, stock) and update_stock(product_id, quantity).
 # Use a static method validate_price(price) and a class method create_admin(data).
 # This class must demonstrate static method, class method, inheritance,
-# validation, and dictionary operations.
+# validation, and dictionary operations. #
 
 
 class Admin(User):
@@ -107,9 +127,9 @@ class Admin(User):
 # Create classes Product and Order where Product contains product_id, name, price, and stock,
 # and Order contains order_id, items, total_price, and status.
 # Implement methods calculate_total(*prices, tax=0.1) and __str__().
-# The system controller class ShopSystem must manage collections and implement
-# order_generator(), sort_orders(key_name), and revenue calculation using
-# map, filter, reduce, generators, sorting with custom key, and exception handling.
+# The system controller class ShopSystem must manage collections and implement order_generator(),
+# sort_orders(key_name), and revenue calculation using
+# map, filter, reduce, generators, sorting with custom key, and exception handling. #
 
 
 from functools import reduce
@@ -160,7 +180,11 @@ class ShopSystem:
     def total_revenue(self):
         try:
             completed_orders = filter(lambda o: o.status == "Completed", self.orders)
-            return reduce(lambda total, o: total + o.total_price, completed_orders, 0)
+            total = 0
+            for o in completed_orders:
+                total += o.total_price
+            return total
+            # return reduce(lambda total, o: total + o.total_price, completed_orders, 0)
         except Exception as e:
             return str(e)
 

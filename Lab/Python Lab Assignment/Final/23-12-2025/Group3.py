@@ -143,11 +143,11 @@ class CompanySystem:
             print("Employee not found")
 
     def high_performer_generator(self, threshold=8):
-        for emp in self.employees.values():
-            if emp._performance_scores:
-                avg = sum(emp._performance_scores) / len(emp._performance_scores)
+        for e in self.employees.values():
+            if e._performance_scores:
+                avg = sum(e._performance_scores) / len(e._performance_scores)
                 if avg >= threshold:
-                    yield emp
+                    yield e
 
     def total_payroll(self):
         try:
@@ -187,7 +187,7 @@ company.add_performance_scores(1, [8, 9, 7])
 company.add_performance_scores(2, [9, 8, 10])
 
 print("---- Employees ----")
-for e in company.sort_employees("name"):
+for e in [company.sort_employees("name")]:
     print(e)
     print("Bonus:", e.calculate_bonus())
 

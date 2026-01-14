@@ -1,0 +1,2 @@
+class myError(Exception):
+    pass

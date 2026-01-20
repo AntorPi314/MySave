@@ -191,7 +191,7 @@ lambda → rule লেখার শর্টকাট ফাংশন
 
 # Example 1: Absolute value দিয়ে sort
 nums = [-10, 5, -3, 2, -8]
-result = sorted(nums, key=lambda x: abs(x))
+result = sorted(nums, key=lambda x: abs(x), reverse=True)
 print(result)
 # Output: [2, -3, 5, -8, -10]
 
